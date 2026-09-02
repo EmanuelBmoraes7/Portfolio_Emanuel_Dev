@@ -224,8 +224,6 @@ function applyI18n(){
   document.documentElement.lang=LANG;
   document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");el.innerHTML=t(k);});
   document.querySelectorAll("[data-i18n-ph]").forEach(el=>el.placeholder=t(el.getAttribute("data-i18n-ph")));
-  document.querySelectorAll("#about-body [data-i18n]"); // p1/p2 handled by data-i18n above
-  document.getElementById("about-body").querySelectorAll(".row").length; // noop
   renderAboutSide();renderChips();renderFilters();paint(window.__f||"__all");renderTimeline();renderCerts();
   document.querySelectorAll("#lang [data-lang]").forEach(s=>s.classList.toggle("on",s.dataset.lang===LANG));
 }
@@ -317,8 +315,16 @@ function showMatrix(){const d=document.createElement("div");d.style.cssText="pos
 window.matrix=showMatrix;
 
 /* ============ REVEAL ============ */
-(function(){const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add("in")),{threshold:.1});
-  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));})();
+(function(){
+  try{
+    if(typeof IntersectionObserver==="undefined"){throw new Error("no IO");}
+    const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add("in")),{threshold:.1});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  }catch(e){
+    // fallback: se IntersectionObserver não existir/falhar, mostra tudo direto
+    document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+  }
+})();
 
 /* ============ HOLOGRAMA 3D ============ */
 (function(){if(!window.THREE)return;const mount=document.getElementById("holo");if(!mount)return;
@@ -348,4 +354,16 @@ const CODING={en:["coding","git push","debugging","building API","deploying"],pt
 
 /* ============ INIT ============ */
 window.__f="__all";
-applyI18n();
+try{
+  applyI18n();
+}catch(e){
+  // se algo falhar, garante que projetos e certificações apareçam mesmo assim
+  console.error("init error:",e);
+  try{renderAboutSide();}catch(_){}
+  try{renderChips();}catch(_){}
+  try{renderFilters();}catch(_){}
+  try{paint("__all");}catch(_){}
+  try{renderTimeline();}catch(_){}
+  try{renderCerts();}catch(_){}
+  document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+}
