@@ -154,13 +154,14 @@ const JOURNEY=[
 ];
 
 const CERTS=[
-  {ico:"☁️",name:{en:"AWS Technical Essentials",pt:"AWS Technical Essentials"},by:"Amazon Web Services · 2026",file:"assets/certs/aws-technical-essentials.pdf"},
+  {ico:"☁️",name:{en:"AWS Technical Essentials",pt:"AWS Technical Essentials"},by:"Amazon Web Services · 2026"},
   {ico:"☁️",name:{en:"Introduction to AWS",pt:"Introdução à AWS"},by:"Rocketseat · 2026",file:"assets/certs/introducao-aws.pdf"},
   {ico:"⚡",name:{en:"FastAPI",pt:"FastAPI"},by:"Rocketseat · 2026",file:"assets/certs/fastapi.pdf"},
   {ico:"🧠",name:{en:"Prompt Engineering",pt:"Engenharia de Prompt"},by:"Rocketseat · 2026",file:"assets/certs/prompt-engineering.pdf"},
   {ico:"🤖",name:{en:"Generative AI from Scratch",pt:"IA Generativa do Zero"},by:"Rocketseat · 2026",file:"assets/certs/ia-generativa.pdf"},
   {ico:"🔧",name:{en:"Git & GitHub",pt:"Git e GitHub"},by:"Rocketseat · 2026",file:"assets/certs/git-github.pdf"},
-  {ico:"🐍",name:{en:"Python",pt:"Python"},by:"Santander · 2026",file:"assets/certs/python-santander.pdf"}
+  {ico:"🐍",name:{en:"Python",pt:"Python"},by:"Santander · 2026",file:"assets/certs/python-santander.pdf"},
+  {ico:"🚀",name:{en:"AI Masterclass",pt:"Masterclass de IA"},by:"Rocketseat · 2026",file:"assets/certs/masterclass-ia.pdf"}
 ];
 
 const ABOUT_SIDE=[
@@ -265,8 +266,12 @@ function renderTimeline(){
       <div class="org">${esc(j.org)}</div><p>${esc(L(j.note))}</p></div>`).join("");
 }
 function renderCerts(){
-  document.getElementById("certs-grid").innerHTML=CERTS.map(c=>
-    `<a class="cert sfx" href="${esc(c.file)}" target="_blank" rel="noreferrer"><div class="ico">${c.ico}</div><div><h4>${esc(L(c.name))}</h4><div class="by">${esc(c.by)}</div></div></a>`).join("");
+  document.getElementById("certs-grid").innerHTML=CERTS.map(c=>{
+    const inner=`<div class="ico">${c.ico}</div><div><h4>${esc(L(c.name))}</h4><div class="by">${esc(c.by)}</div></div>`;
+    return c.file
+      ? `<a class="cert sfx" href="${esc(c.file)}" target="_blank" rel="noreferrer">${inner}</a>`
+      : `<div class="cert sfx">${inner}</div>`;
+  }).join("");
 }
 
 /* ============ MODAL ============ */
