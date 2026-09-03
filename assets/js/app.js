@@ -178,15 +178,15 @@ const ABOUT_SIDE=[
 const BOOT=["[0.00] neon_grid kernel booting...","[0.14] loading identity: EMANUEL_B_MORAES .. OK",
 "[0.41] mounting /projects ................. OK","[0.77] decrypting skill matrix ............ OK",
 "[1.02] linking ATI-TO intern node ......... OK","[1.30] rendering holographic UI ........... OK"];
-(function(){const el=document.getElementById("boot");let i=0;
+(function(){const el=document.getElementById("boot");if(!el)return;let i=0;
   const iv=setInterval(()=>{
     if(i<BOOT.length){const d=document.createElement("div");d.className="l";d.innerHTML=esc(BOOT[i]).replace("OK",'<span class="ok">OK</span>');el.appendChild(d);i++;}
-    else{clearInterval(iv);const g=document.createElement("div");g.className="grant";g.textContent="ACCESS GRANTED";el.appendChild(g);document.getElementById("enterBtn").classList.remove("hidden");}
+    else{clearInterval(iv);const g=document.createElement("div");g.className="grant";g.textContent="ACCESS GRANTED";el.appendChild(g);document.getElementById("enterBtn")?.classList.remove("hidden");}
   },230);})();
-document.getElementById("enterBtn").onclick=()=>{const g=document.getElementById("gate");g.style.opacity="0";setTimeout(()=>g.style.display="none",600);startTyping();};
+document.getElementById("enterBtn")?.addEventListener("click",()=>{const g=document.getElementById("gate");if(g){g.style.opacity="0";setTimeout(()=>g.style.display="none",600);}startTyping();});
 
 /* ============ MATRIX bg ============ */
-(function(){const cv=document.getElementById("matrix"),ctx=cv.getContext("2d");
+(function(){const cv=document.getElementById("matrix");if(!cv)return;const ctx=cv.getContext("2d");
   const rs=()=>{cv.width=innerWidth;cv.height=innerHeight};rs();addEventListener("resize",rs);
   let drops=Array(Math.floor(cv.width/16)).fill(1).map(()=>Math.random()*-50);const ch="アカサ01ｦｧ<>{}#EM";
   (function d(){ctx.fillStyle="rgba(10,10,15,.13)";ctx.fillRect(0,0,cv.width,cv.height);ctx.font="14px monospace";
@@ -194,14 +194,15 @@ document.getElementById("enterBtn").onclick=()=>{const g=document.getElementById
     if(y*16>cv.height&&Math.random()>.975)drops[i]=0;drops[i]++;});requestAnimationFrame(d);})();})();
 
 /* ============ cursor + progress ============ */
-(function(){const c=document.querySelector(".cursor");addEventListener("mousemove",e=>c.style.transform=`translate(${e.clientX}px,${e.clientY}px)`);})();
-addEventListener("scroll",()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;document.getElementById("progress").style.width=p+"%";});
+(function(){const c=document.querySelector(".cursor");if(!c)return;addEventListener("mousemove",e=>c.style.transform=`translate(${e.clientX}px,${e.clientY}px)`);})();
+addEventListener("scroll",()=>{const h=document.documentElement,bar=document.getElementById("progress");if(!bar)return;const p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;bar.style.width=p+"%";});
 
 /* ============ NAV ============ */
 const nav=document.getElementById("nav"),tog=document.getElementById("navToggle"),scrim=document.getElementById("navScrim");
-function toggleNav(o){nav.classList.toggle("open",o);tog.classList.toggle("x",o);scrim.classList.toggle("on",o);}
-tog.onclick=()=>toggleNav(!nav.classList.contains("open"));scrim.onclick=()=>toggleNav(false);
-nav.querySelectorAll("a").forEach(a=>a.onclick=()=>toggleNav(false));
+function toggleNav(o){nav?.classList.toggle("open",o);tog?.classList.toggle("x",o);scrim?.classList.toggle("on",o);}
+if(tog)tog.onclick=()=>toggleNav(!nav.classList.contains("open"));
+if(scrim)scrim.onclick=()=>toggleNav(false);
+nav?.querySelectorAll("a").forEach(a=>a.onclick=()=>toggleNav(false));
 
 /* ============ TYPING (bilingue) ============ */
 const PHRASES={en:["Back-End Developer","Python · FastAPI · AWS","Data Automation Engineer","Building the Future in Neon"],
@@ -209,7 +210,7 @@ const PHRASES={en:["Back-End Developer","Python · FastAPI · AWS","Data Automat
 let typingStarted=false;
 function startTyping(){
   if(typingStarted)return;typingStarted=true;
-  const el=document.getElementById("typed");let p=0,i=0,del=false;
+  const el=document.getElementById("typed");if(!el)return;let p=0,i=0,del=false;
   (function tick(){
     const arr=PHRASES[LANG];const full=arr[p%arr.length];
     el.innerHTML=esc(del?full.slice(0,i--):full.slice(0,i++))+'<span class="cur">▌</span>';
@@ -286,20 +287,21 @@ function openModal(p){
     </div>`;
   document.getElementById("modal").style.display="flex";
 }
-document.getElementById("modal").onclick=e=>{if(e.target.id==="modal")e.currentTarget.style.display="none";};
+document.getElementById("modal")?.addEventListener("click",e=>{if(e.target.id==="modal")e.currentTarget.style.display="none";});
+addEventListener("keydown",e=>{if(e.key==="Escape"){const m=document.getElementById("modal");if(m)m.style.display="none";}});
 
 /* ============ CONTATO -> WhatsApp ============ */
-document.getElementById("send").onclick=()=>{
-  const n=document.getElementById("f-nome").value.trim();
-  const m=document.getElementById("f-msg").value.trim();
+document.getElementById("send")?.addEventListener("click",()=>{
+  const n=(document.getElementById("f-nome")?.value||"").trim();
+  const m=(document.getElementById("f-msg")?.value||"").trim();
   const greet=LANG==="pt"?"Olá Emanuel! Vim pelo seu portfólio.":"Hi Emanuel! I came from your portfolio.";
   const txt=`${greet}${n?`\n\n${LANG==="pt"?"Nome":"Name"}: ${n}`:""}${m?`\n\n${m}`:""}`;
   window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(txt)}`,"_blank");
-};
+});
 
 /* ============ LANG TOGGLE ============ */
-document.getElementById("lang").onclick=()=>{LANG=LANG==="en"?"pt":"en";applyI18n();
-  if(typingStarted){typingStarted=false;document.getElementById("typed").innerHTML='<span class="cur">▌</span>';startTyping();}};
+document.getElementById("lang")?.addEventListener("click",()=>{LANG=LANG==="en"?"pt":"en";applyI18n();
+  if(typingStarted){typingStarted=false;const ty=document.getElementById("typed");if(ty)ty.innerHTML='<span class="cur">▌</span>';startTyping();}});
 
 /* ============ MATRIX FS + KONAMI ============ */
 function showMatrix(){const d=document.createElement("div");d.style.cssText="position:fixed;inset:0;z-index:9999;background:#0a0a0f;cursor:pointer";
