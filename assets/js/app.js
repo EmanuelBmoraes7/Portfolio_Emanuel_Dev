@@ -204,6 +204,12 @@ function toggleNav(o){nav?.classList.toggle("open",o);tog?.classList.toggle("x",
 if(tog)tog.onclick=()=>toggleNav(!nav.classList.contains("open"));
 if(scrim)scrim.onclick=()=>toggleNav(false);
 nav?.querySelectorAll("a").forEach(a=>a.onclick=()=>toggleNav(false));
+/* Rolagem de ancoras sem adicionar #hash na URL */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{
+  const t=document.getElementById(a.getAttribute("href").slice(1));
+  if(t){e.preventDefault();toggleNav(false);t.scrollIntoView({behavior:"smooth"});}
+}));
+if(location.hash)history.replaceState(null,"",location.pathname+location.search);
 
 /* ============ TYPING (bilingue) ============ */
 const PHRASES={en:["Back-End Developer","Python · FastAPI · AWS","Data Automation Engineer","Building the Future in Neon"],
