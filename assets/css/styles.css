@@ -206,7 +206,7 @@ footer .neon{color:var(--magenta);text-shadow:0 0 8px var(--magenta)}
 #boot{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,2.2vw,14px);max-width:460px;width:100%}
 #boot .l{margin-bottom:5px;color:var(--dim)}#boot .ok{color:var(--cyan)}
 #boot .grant{color:var(--lime);font-family:'Orbitron',sans-serif;font-size:clamp(18px,4.5vw,30px);font-weight:900;margin-top:16px;text-shadow:0 0 22px var(--lime)}
-.enter-btn{margin-top:26px;opacity:0;animation:fade .5s 2.6s forwards}
+.enter-btn{margin-top:26px;opacity:0;animation:fade .3s .05s forwards}
 @keyframes fade{to{opacity:1}}
 
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
