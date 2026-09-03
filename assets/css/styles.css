@@ -167,7 +167,7 @@ h2.title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(1.7re
 .tl p{color:var(--muted);font-size:.98rem;margin:8px 0 0}
 
 .certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
-.cert{border:1px solid var(--line);border-radius:8px;padding:20px;background:rgba(13,13,22,.6);transition:.25s;display:flex;gap:14px;align-items:flex-start}
+.cert{border:1px solid var(--line);border-radius:8px;padding:20px;background:rgba(13,13,22,.6);transition:.25s;display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:inherit;cursor:pointer}
 .cert:hover{border-color:var(--lime);box-shadow:0 0 22px rgba(34,211,238,.25);transform:translateY(-4px)}
 .cert .ico{font-size:26px;line-height:1;filter:drop-shadow(0 0 8px var(--lime))}
 .cert h4{margin:0 0 3px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;color:var(--txt)}
