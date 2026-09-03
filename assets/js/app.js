@@ -220,9 +220,14 @@ function startTyping(){
   const el=document.getElementById("typed");if(!el)return;let p=0,i=0,del=false;
   (function tick(){
     const arr=PHRASES[LANG];const full=arr[p%arr.length];
-    el.innerHTML=esc(del?full.slice(0,i--):full.slice(0,i++))+'<span class="cur">▌</span>';
-    if(!del&&i>full.length){del=true;setTimeout(tick,1500);return;}
-    if(del&&i<0){del=false;i=0;p++;setTimeout(tick,200);return;}
+    el.innerHTML=esc(full.slice(0,i))+'<span class="cur">▌</span>';
+    if(!del){
+      if(i<full.length){i++;}
+      else{del=true;setTimeout(tick,1500);return;}
+    }else{
+      if(i>0){i--;}
+      else{del=false;p++;setTimeout(tick,200);return;}
+    }
     setTimeout(tick,del?40:75);
   })();
 }
