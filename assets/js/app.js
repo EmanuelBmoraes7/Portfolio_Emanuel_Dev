@@ -154,7 +154,7 @@ const JOURNEY=[
 ];
 
 const CERTS=[
-  {ico:"☁️",name:{en:"AWS Technical Essentials",pt:"AWS Technical Essentials"},by:"Amazon Web Services · 2026"},
+  {ico:"☁️",name:{en:"AWS Technical Essentials",pt:"AWS Technical Essentials"},by:"Amazon Web Services · 2026",file:"assets/certs/aws-technical-essentials.pdf"},
   {ico:"☁️",name:{en:"Introduction to AWS",pt:"Introdução à AWS"},by:"Rocketseat · 2026",file:"assets/certs/introducao-aws.pdf"},
   {ico:"⚡",name:{en:"FastAPI",pt:"FastAPI"},by:"Rocketseat · 2026",file:"assets/certs/fastapi.pdf"},
   {ico:"🧠",name:{en:"Prompt Engineering",pt:"Engenharia de Prompt"},by:"Rocketseat · 2026",file:"assets/certs/prompt-engineering.pdf"},
