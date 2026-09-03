@@ -14,7 +14,7 @@
  * Para atualizar conteúdo, edite os objetos da seção 3 (Dados).
  * ========================================================================== */
 
-const C={cyan:"#00f0ff",magenta:"#ff00e5",purple:"#b14bff",lime:"#adff2f",pink:"#ff2e88",dim:"#5f7a86",muted:"#8aacb8"};
+const C={cyan:"#38bdf8",magenta:"#2563eb",purple:"#3b82f6",lime:"#22d3ee",pink:"#1e6fff",dim:"#5f7a86",muted:"#8aacb8"};
 const WHATSAPP="5563999570506";
 const esc=s=>(s||"").replace(/[<>&]/g,m=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[m]));
 
@@ -331,13 +331,13 @@ window.matrix=showMatrix;
   const w=mount.clientWidth||320,h=mount.clientHeight||320;
   const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,w/h,.1,100);cam.position.z=6;
   const rn=new THREE.WebGLRenderer({antialias:true,alpha:true});rn.setPixelRatio(Math.min(devicePixelRatio,2));rn.setSize(w,h);rn.setClearColor(0,0);mount.appendChild(rn.domElement);
-  const g1=new THREE.Mesh(new THREE.IcosahedronGeometry(2.1,1),new THREE.MeshBasicMaterial({color:0x00f0ff,wireframe:true,transparent:true,opacity:.6}));
-  const g2=new THREE.Mesh(new THREE.IcosahedronGeometry(1.3,0),new THREE.MeshBasicMaterial({color:0xff00e5,wireframe:true,transparent:true,opacity:.45}));
+  const g1=new THREE.Mesh(new THREE.IcosahedronGeometry(2.1,1),new THREE.MeshBasicMaterial({color:0x38bdf8,wireframe:true,transparent:true,opacity:.6}));
+  const g2=new THREE.Mesh(new THREE.IcosahedronGeometry(1.3,0),new THREE.MeshBasicMaterial({color:0x2563eb,wireframe:true,transparent:true,opacity:.45}));
   scene.add(g1,g2);
   const pts=new Float32Array(400*3);for(let i=0;i<400;i++){const r=3+Math.random()*1.5,a=Math.random()*6.28,b=Math.random()*3.14;
     pts[i*3]=r*Math.sin(b)*Math.cos(a);pts[i*3+1]=r*Math.sin(b)*Math.sin(a);pts[i*3+2]=r*Math.cos(b);}
   const pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pts,3));
-  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xadff2f,size:.045,transparent:true,opacity:.8})));
+  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x22d3ee,size:.045,transparent:true,opacity:.8})));
   const clk=new THREE.Clock();let mx=0,my=0;addEventListener("mousemove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;});
   (function loop(){requestAnimationFrame(loop);const tt=clk.getElapsedTime();
     g1.rotation.x=tt*.2+my*.5;g1.rotation.y=tt*.3+mx*.5;g2.rotation.x=-tt*.4;g2.rotation.z=tt*.25;rn.render(scene,cam);})();
