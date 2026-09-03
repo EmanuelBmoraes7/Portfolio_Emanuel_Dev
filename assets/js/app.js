@@ -184,7 +184,7 @@ const BOOT=["[0.00] neon_grid kernel booting...","[0.14] loading identity: EMANU
     if(i<BOOT.length){const d=document.createElement("div");d.className="l";d.innerHTML=esc(BOOT[i]).replace("OK",'<span class="ok">OK</span>');el.appendChild(d);i++;}
     else{clearInterval(iv);const g=document.createElement("div");g.className="grant";g.textContent="ACCESS GRANTED";el.appendChild(g);document.getElementById("enterBtn")?.classList.remove("hidden");}
   },230);})();
-document.getElementById("enterBtn")?.addEventListener("click",()=>{const g=document.getElementById("gate");if(g){g.style.opacity="0";setTimeout(()=>g.style.display="none",600);}startTyping();});
+document.getElementById("enterBtn")?.addEventListener("click",()=>{document.body.classList.add("entered");const g=document.getElementById("gate");if(g){g.style.opacity="0";setTimeout(()=>g.style.display="none",600);}startTyping();});
 
 /* ============ MATRIX bg ============ */
 (function(){const cv=document.getElementById("matrix");if(!cv)return;const ctx=cv.getContext("2d");
